@@ -40,6 +40,6 @@ USER appuser
 # Exponer puerto (Render usa la variable de entorno PORT)
 EXPOSE 8000
 
-# Comando de inicio usando el script bash
-CMD ["./start.sh"]
+# Comando de inicio usando el script bash (formato shell para variables de entorno)
+CMD ./start.sh
 
