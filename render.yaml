@@ -1,11 +1,13 @@
 # Render Blueprint para AmeliaBot/BotDO
 # Este archivo define todos los servicios necesarios para el deployment
 
-databases:
-  # Base de datos PostgreSQL
-  - name: botdo-db
-    plan: free
-    region: oregon
+# NOTA: Render solo permite 1 base de datos free por cuenta
+# Opción 1: Usa tu base de datos existente (deja esto comentado)
+# Opción 2: Si eliminaste tu DB existente, descomenta estas líneas:
+# databases:
+#   - name: botdo-db
+#     plan: free
+#     region: oregon
 
 services:
 
@@ -20,9 +22,11 @@ services:
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: botdo-db
-          property: connectionString
+        sync: false  # Configurar manualmente con tu DB existente
+        # Si creaste nueva DB en blueprint, usa:
+        # fromDatabase:
+        #   name: botdo-db
+        #   property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: ENVIRONMENT
