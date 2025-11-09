@@ -1,0 +1,57 @@
+# Render Blueprint para AmeliaBot/BotDO
+# Este archivo define todos los servicios necesarios para el deployment
+
+services:
+  # Base de datos PostgreSQL
+  - type: pserv
+    name: botdo-db
+    env: docker
+    plan: free  # Gratis por 90 días, luego $7/mes
+    region: oregon
+    databaseName: botdo
+    databaseUser: botdo_user
+    ipAllowList: []  # Permite conexiones desde cualquier servicio de Render
+
+  # Backend - FastAPI
+  - type: web
+    name: botdo-backend
+    env: docker
+    region: oregon
+    plan: free  # Gratis con limitaciones (duerme después de 15 min de inactividad)
+    dockerfilePath: ./backend/Dockerfile.prod
+    dockerContext: ./backend
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: botdo-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: SLACK_BOT_TOKEN
+        sync: false  # Se debe configurar manualmente en el dashboard
+      - key: SLACK_SIGNING_SECRET
+        sync: false
+      - key: WHAPI_API_KEY
+        sync: false
+      - key: WHAPI_BASE_URL
+        sync: false
+      - key: DO_API_TOKEN
+        sync: false
+    autoDeploy: true
+
+  # Frontend - React
+  - type: web
+    name: botdo-frontend
+    env: docker
+    region: oregon
+    plan: free
+    dockerfilePath: ./frontend/Dockerfile.prod
+    dockerContext: ./frontend
+    envVars:
+      - key: REACT_APP_API_URL
+        sync: false  # Configurar manualmente con: https://botdo-backend.onrender.com
+    autoDeploy: true
+

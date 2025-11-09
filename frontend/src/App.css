@@ -1,0 +1,184 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.content {
+  padding: 40px;
+}
+
+.hello-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hello-section h2 {
+  color: #667eea;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.hello-section p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ddd, transparent);
+  margin: 30px 0;
+}
+
+.backend-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.backend-section h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.status-badge.connected {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-badge.checking {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.backend-message {
+  color: #333;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  padding: 10px;
+  background: #f8d7da;
+  border-radius: 5px;
+}
+
+.features {
+  margin-top: 30px;
+}
+
+.features h3 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features li {
+  padding: 12px 20px;
+  margin: 8px 0;
+  background: #f8f9fa;
+  border-radius: 10px;
+  color: #333;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.features li:hover {
+  background: #e9ecef;
+  transform: translateX(5px);
+}
+
+.footer {
+  background: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  border-top: 1px solid #e9ecef;
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .hello-section h2 {
+    font-size: 1.5rem;
+  }
+}
+

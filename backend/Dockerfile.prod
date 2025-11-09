@@ -1,0 +1,45 @@
+# Dockerfile de Producción para Backend (FastAPI)
+# Optimizado para Render.com
+
+FROM python:3.11-slim
+
+# Variables de entorno para Python
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Instalar dependencias del sistema necesarias para psycopg2
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    gcc \
+    postgresql-client \
+    libpq-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar requirements y instalar dependencias de Python
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar código de la aplicación
+COPY . .
+
+# Crear usuario no-root para seguridad
+RUN useradd -m -u 1000 appuser && \
+    chown -R appuser:appuser /app
+
+USER appuser
+
+# Exponer puerto
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
+
+# Comando de inicio - sin --reload en producción
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
+

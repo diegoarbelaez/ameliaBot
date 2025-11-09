@@ -1,0 +1,36 @@
+# ===========================================
+# CONFIGURACIÓN CORRECTA PARA POSTGRESQL
+# ===========================================
+# 
+# COPIA ESTAS LÍNEAS A TU ARCHIVO .env
+# Reemplazando las líneas antiguas de POSTGRES_*
+#
+
+# Database Configuration
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+POSTGRES_DB=botdo
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=BotDO_Secure_2024!
+
+# Database URL (asegúrate que coincida con las variables de arriba)
+DATABASE_URL=postgresql://postgres:BotDO_Secure_2024!@db:5432/botdo
+
+# ===========================================
+# NOTAS IMPORTANTES:
+# ===========================================
+# 1. POSTGRES_HOST debe ser "db" (no "localhost") 
+#    porque es el nombre del servicio en docker-compose
+#
+# 2. La contraseña en POSTGRES_PASSWORD y en DATABASE_URL
+#    debe ser EXACTAMENTE la misma
+#
+# 3. Puedes cambiar "BotDO_Secure_2024!" por otra contraseña
+#    pero asegúrate de cambiarla en AMBOS lugares
+#
+# ===========================================
+# DESPUÉS DE EDITAR EL .env:
+# ===========================================
+# docker-compose up -d
+#
+

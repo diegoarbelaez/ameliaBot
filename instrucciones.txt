@@ -1,0 +1,17 @@
+Hagamos un setup de un entorno de trabajo para desplegar un proyecto que tenga lo siguiente:
+
+1. Un docker con los siguientes elementos:
+- Backend Server con FastAPI
+- Base de datos con PostgreSQL
+- Frontend con React
+2. Crea un Hola Mundo en el backend con FastAPI y un Hola Mundo en el frontend con React
+
+
+Contexto y funcionalidad del proyecto:
+
+Implementaremos un Backend para conectar un BOT con Slack y posteriormente con Whapi.
+Este Bot estará conectado con Digital Ocean Agent y tendrá la funcionalidad de:
+- Enviar mensajes a Slack
+- Recibir mensajes de Slack
+- Enviar mensajes a Whapi
+- Recibir mensajes de Whapi
