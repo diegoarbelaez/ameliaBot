@@ -39,7 +39,9 @@ services:
         sync: false
       - key: WHAPI_BASE_URL
         sync: false
-      - key: DO_API_TOKEN
+      - key: DIGITALOCEAN_API_KEY
+        sync: false
+      - key: DIGITALOCEAN_AGENT_ID
         sync: false
     autoDeploy: true
 

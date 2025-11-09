@@ -46,35 +46,38 @@ def get_optional_env(var_name: str, default: str = None) -> str:
 
 # Validate and load all required environment variables at startup
 try:
-    # Database
+    # Database (DATABASE_URL is primary, others are for Docker Compose only)
     DATABASE_URL = get_required_env("DATABASE_URL")
-    POSTGRES_HOST = get_required_env("POSTGRES_HOST")
-    POSTGRES_PORT = get_required_env("POSTGRES_PORT")
-    POSTGRES_DB = get_required_env("POSTGRES_DB")
-    POSTGRES_USER = get_required_env("POSTGRES_USER")
-    POSTGRES_PASSWORD = get_required_env("POSTGRES_PASSWORD")
+    POSTGRES_HOST = get_optional_env("POSTGRES_HOST", "db")
+    POSTGRES_PORT = get_optional_env("POSTGRES_PORT", "5432")
+    POSTGRES_DB = get_optional_env("POSTGRES_DB", "botdo")
+    POSTGRES_USER = get_optional_env("POSTGRES_USER", "postgres")
+    POSTGRES_PASSWORD = get_optional_env("POSTGRES_PASSWORD", "")
     
-    # Slack
+    # Slack (required for Slack functionality)
     SLACK_BOT_TOKEN = get_required_env("SLACK_BOT_TOKEN")
-    SLACK_APP_TOKEN = get_required_env("SLACK_APP_TOKEN")
+    SLACK_APP_TOKEN = get_optional_env("SLACK_APP_TOKEN", "")  # Not always needed
     SLACK_SIGNING_SECRET = get_required_env("SLACK_SIGNING_SECRET")
     
-    # Digital Ocean
-    DIGITALOCEAN_API_KEY = get_required_env("DIGITALOCEAN_API_KEY")
-    DIGITALOCEAN_AGENT_ID = get_required_env("DIGITALOCEAN_AGENT_ID")
+    # Digital Ocean (optional - only needed for DO integration)
+    DIGITALOCEAN_API_KEY = get_optional_env("DIGITALOCEAN_API_KEY", "")
+    DIGITALOCEAN_AGENT_ID = get_optional_env("DIGITALOCEAN_AGENT_ID", "")
     DIGITALOCEAN_API_URL = get_optional_env("DIGITALOCEAN_API_URL", "https://api.digitalocean.com/v2")
     
-    # Whapi
+    # Whapi (required for WhatsApp functionality)
     WHAPI_API_KEY = get_required_env("WHAPI_API_KEY")
     WHAPI_BASE_URL = get_required_env("WHAPI_BASE_URL")
-    WHAPI_CHANNEL_ID = get_optional_env("WHAPI_CHANNEL_ID")
+    WHAPI_CHANNEL_ID = get_optional_env("WHAPI_CHANNEL_ID", "")
     
     # Security
     SECRET_KEY = get_required_env("SECRET_KEY")
     
-    # CORS
-    CORS_ORIGINS_STR = get_required_env("CORS_ORIGINS")
-    CORS_ORIGINS = [origin.strip() for origin in CORS_ORIGINS_STR.split(",")]
+    # CORS (allow all origins if not specified)
+    CORS_ORIGINS_STR = get_optional_env("CORS_ORIGINS", "*")
+    if CORS_ORIGINS_STR == "*":
+        CORS_ORIGINS = ["*"]
+    else:
+        CORS_ORIGINS = [origin.strip() for origin in CORS_ORIGINS_STR.split(",")]
     
     # Optional
     ENVIRONMENT = get_optional_env("ENVIRONMENT", "production")
