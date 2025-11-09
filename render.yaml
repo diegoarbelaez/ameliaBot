@@ -1,13 +1,13 @@
 # Render Blueprint para AmeliaBot/BotDO
 # Este archivo define todos los servicios necesarios para el deployment
 
-services:
+databases:
   # Base de datos PostgreSQL
-  - type: pserv
-    name: botdo-db
-    plan: free  # Gratis por 90 días, luego $7/mes
+  - name: botdo-db
+    plan: free
     region: oregon
-    ipAllowList: []  # Permite conexiones desde cualquier servicio de Render
+
+services:
 
   # Backend - FastAPI
   - type: web
