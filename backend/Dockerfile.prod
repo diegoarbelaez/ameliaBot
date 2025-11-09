@@ -27,6 +27,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar código de la aplicación
 COPY . .
 
+# Copiar script de inicio y darle permisos de ejecución
+COPY start.sh .
+RUN chmod +x start.sh
+
 # Crear usuario no-root para seguridad
 RUN useradd -m -u 1000 appuser && \
     chown -R appuser:appuser /app
@@ -36,7 +40,6 @@ USER appuser
 # Exponer puerto (Render usa la variable de entorno PORT)
 EXPOSE 8000
 
-# Comando de inicio - sin --reload en producción
-# Render proporciona automáticamente la variable PORT
-CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 2
+# Comando de inicio usando el script bash
+CMD ["./start.sh"]
 
