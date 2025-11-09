@@ -5,11 +5,8 @@ services:
   # Base de datos PostgreSQL
   - type: pserv
     name: botdo-db
-    env: docker
     plan: free  # Gratis por 90 días, luego $7/mes
     region: oregon
-    databaseName: botdo
-    databaseUser: botdo_user
     ipAllowList: []  # Permite conexiones desde cualquier servicio de Render
 
   # Backend - FastAPI
